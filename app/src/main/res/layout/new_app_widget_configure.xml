@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:labelFor="@id/ptxtCountDownText"
+        android:text="Countdown text" />
+
+    <EditText
+        android:id="@+id/ptxtCountDownText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:minHeight="48dp" />
+
+    <TextView
+        android:id="@+id/txtTargetDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:labelFor="@id/ptxtCountDownText"
+        android:text="Target date (yyyy-mm-dd)" />
+
+    <EditText
+        android:id="@+id/ptxtTargetDate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="59dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnTextColor"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:text="Text color" />
+
+        <TextView
+            android:id="@+id/txtTextColor"
+            android:layout_width="243dp"
+            android:layout_height="33dp"
+            android:layout_marginLeft="10dp"
+            android:text="Selected text color sample"
+            android:textAlignment="viewStart"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/add_widget" />
+
+</LinearLayout>

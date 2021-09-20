@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MyCountDown</string>
+    <string name="MainText">Nothing to see here</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="days_untill_retirement">Days until retirement</string>
+    <string name="_days">10000</string>
+    <string name="widget_id_200">Widget ID 200</string>
+</resources>
