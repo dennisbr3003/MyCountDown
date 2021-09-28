@@ -8,4 +8,7 @@
     <string name="days_untill_retirement">Days until retirement</string>
     <string name="_days">0</string>
     <string name="widget_id_200">Widget ID 200</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dennis_brink">Dennis Brink</string>
 </resources>

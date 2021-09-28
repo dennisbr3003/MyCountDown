@@ -4,16 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity" >
 
     <TextView
-        android:id="@+id/txtMain"
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/MainText"
+        android:text="@string/dennis_brink"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.084" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/WidgetView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:tag="widget_list"
+        android:focusableInTouchMode="true"
+        app:layoutManager="LinearLayoutManager"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        tools:listitem="@layout/widgetview_row"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
