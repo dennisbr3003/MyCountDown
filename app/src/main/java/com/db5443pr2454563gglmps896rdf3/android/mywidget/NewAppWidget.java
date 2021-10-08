@@ -5,13 +5,8 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.util.Log;
 import android.widget.RemoteViews;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Date;
-import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Implementation of App Widget functionality.
@@ -30,6 +25,9 @@ public class NewAppWidget extends AppWidgetProvider {
         try { // update widget text fields
             views.setTextViewText(R.id.txtDaysLeft, String.valueOf(getNumberOfDays(context, appWidgetId)));
             views.setTextViewText(R.id.txtCountDownTo, rs.getSharedReferenceCountDownText(context, appWidgetId));
+            //update count and time of update
+            rs.saveSharedReferenceLastUpdateTime(context, appWidgetId);
+            rs.saveSharedReferenceCount(context, appWidgetId);
         } catch (Exception e) {
             Log.d("DENNISB", "Error " + e.getMessage());
         }

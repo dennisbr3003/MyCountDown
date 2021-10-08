@@ -1,6 +1,7 @@
 package com.db5443pr2454563gglmps896rdf3.android.mywidget;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,15 +9,15 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class WidgetViewAdapter extends RecyclerView.Adapter<WidgetViewAdapter.ViewHolder>  {
-    private List<String> mData;
+    private ArrayList<MainActivity.WidgetRowElement> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    WidgetViewAdapter(Context context, List<String> data) {
+    WidgetViewAdapter(Context context, ArrayList<MainActivity.WidgetRowElement> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -31,8 +32,15 @@ public class WidgetViewAdapter extends RecyclerView.Adapter<WidgetViewAdapter.Vi
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String animal = mData.get(position);
-        holder.myTextView.setText(animal);
+        MainActivity.WidgetRowElement wre = mData.get(position);
+
+        Log.d("DENNISB", wre.toString());
+
+        holder.mCountDownText.setText(wre.getCountDownText());
+        holder.mLastUpdateTime.setText(wre.getLastUpdateTime());
+        holder.mWidgetID.setText(wre.getWidgetId());
+        holder.mTotalUpdates.setText(wre.getTotalUpdates());
+        holder.mTargetIsoDate.setText(wre.getTargetIsoDate());
     }
 
     // total number of rows
@@ -44,11 +52,19 @@ public class WidgetViewAdapter extends RecyclerView.Adapter<WidgetViewAdapter.Vi
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView;
+        TextView mWidgetID;
+        TextView mCountDownText;
+        TextView mTotalUpdates;
+        TextView mLastUpdateTime;
+        TextView mTargetIsoDate;
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.textView5);
+            mWidgetID = itemView.findViewById(R.id.txtWidgetID);
+            mCountDownText = itemView.findViewById(R.id.txtCountDownText);
+            mTotalUpdates = itemView.findViewById(R.id.txtTotalUpdatesText);
+            mLastUpdateTime = itemView.findViewById(R.id.txtLastUpdates);
+            mTargetIsoDate = itemView.findViewById(R.id.txtTargetIsoDateText);
             itemView.setOnClickListener(this);
         }
 
@@ -59,7 +75,7 @@ public class WidgetViewAdapter extends RecyclerView.Adapter<WidgetViewAdapter.Vi
     }
 
     // convenience method for getting data at click position
-    String getItem(int id) {
+    MainActivity.WidgetRowElement getItem(int id) {
         return mData.get(id);
     }
 

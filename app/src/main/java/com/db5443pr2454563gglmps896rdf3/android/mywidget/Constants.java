@@ -5,5 +5,7 @@ public interface Constants {
     String TARGET_DATE = "targetIsoDate";
     String COUNTDOWN_TEXT = "countDownText";
     String TEXT_COLOR = "textColor";
+    String LAST_UPDATE = "lastUpdateTime";
+    String UPDATE_COUNT = "totalUpdates";
     String PREF_PREFIX_KEY = "appwidget_";
 }
