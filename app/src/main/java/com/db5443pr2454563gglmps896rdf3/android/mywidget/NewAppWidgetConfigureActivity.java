@@ -1,22 +1,31 @@
 package com.db5443pr2454563gglmps896rdf3.android.mywidget;
 
 import android.app.Activity;
+import android.app.ActivityManager;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import androidx.annotation.RequiresApi;
 
 import com.db5443pr2454563gglmps896rdf3.android.mywidget.databinding.NewAppWidgetConfigureBinding;
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 /**
  * The configuration screen for the {@link NewAppWidget NewAppWidget} AppWidget.
@@ -29,34 +38,44 @@ public class NewAppWidgetConfigureActivity extends Activity {
 
     EditText mCountDownText;
     EditText mTargetDateText;
-    /*
-    View.OnClickListener mOnClickListener = new View.OnClickListener() {
-        public void onClick(View v) {
 
-            Log.d("DENNISB", "mOnClickListener " + v.toString());
-
-            final Context context = NewAppWidgetConfigureActivity.this;
-
-            rs.saveSharedReferenceTargetDate(mTargetDateText.getText().toString(), context, mAppWidgetId);
-            rs.saveSharedReferenceCountDownText(mCountDownText.getText().toString(), context, mAppWidgetId);
-
-            // It is the responsibility of the configuration activity to update the app widget
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
-            NewAppWidget.updateAppWidget(context, appWidgetManager, mAppWidgetId);
-
-            // Make sure we pass back the original appWidgetId
-            Intent resultValue = new Intent();
-            resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
-            setResult(RESULT_OK, resultValue);
-            finish();
-        }
-    };
-     */
     private NewAppWidgetConfigureBinding binding;
 
     public NewAppWidgetConfigureActivity() {
-
         super();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d("DENNISB", "onBackPressed event fired for widget " + mAppWidgetId);
+        cancelAndRemoveWidget();
+        super.onBackPressed();
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        Log.d("DENNISB", "onUserLeaveHint event fired for widget " + mAppWidgetId);
+        cancelAndRemoveWidget();
+        super.onUserLeaveHint();
+    }
+
+    @Override
+    public boolean dispatchKeyShortcutEvent(KeyEvent event) {
+        return super.dispatchKeyShortcutEvent(event);
+    }
+
+    public void cancelAndRemoveWidget() {
+
+        // when you press back in the configuration activity the widget that is
+        // being configured (and is in fact already created) will be removed to
+        // avoid creating ghost widgets.
+
+        Intent intent = new Intent();
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+        setResult(RESULT_CANCELED, intent);
+        finish();
+
+        Log.d("DENNISB", "Widget " + mAppWidgetId + " deleted");
 
     }
 
@@ -73,14 +92,22 @@ public class NewAppWidgetConfigureActivity extends Activity {
 
         mCountDownText = binding.ptxtCountDownText;
         mTargetDateText = binding.ptxtTargetDate;
-        //binding.addButton.setOnClickListener(mOnClickListener);
-        //binding.addButton.setOnClickListener(mOnClickListenerColor);
 
         Button addWidget = (Button) findViewById(R.id.add_button);
+
         addWidget.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 Log.d("DENNISB", "OnClickListener addWidget ");
+
+                // check target date
+                SimpleAnswer simpleAnswer = checkTargetDate(mTargetDateText.getText().toString());
+                if(!simpleAnswer.islAnswer()){
+                    Log.d("DENNISB", "SimpleAnswer message " + simpleAnswer.getMessage());
+                    // show error dialog that has to be tabbed, then break.
+                    return;
+                }
 
                 final Context context = NewAppWidgetConfigureActivity.this;
 
@@ -158,4 +185,16 @@ public class NewAppWidgetConfigureActivity extends Activity {
         mTargetDateText.setText(rs.getSharedReferenceTargetDate(NewAppWidgetConfigureActivity.this, mAppWidgetId));
 
     }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private SimpleAnswer checkTargetDate(String targetDate){
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ISO_DATE
+                .withResolverStyle(ResolverStyle.STRICT);
+
+        DateValidator dateValidator = new DateValidator(dateFormatter);
+        return dateValidator.isValid(targetDate);
+
+    }
+
 }

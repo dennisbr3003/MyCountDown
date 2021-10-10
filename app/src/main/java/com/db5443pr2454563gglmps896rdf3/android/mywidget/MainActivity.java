@@ -32,8 +32,10 @@ public class MainActivity extends AppCompatActivity implements Constants, Widget
         Map<String,?> keys = prefs.getAll();
 
         for(Map.Entry<String,?> entry : keys.entrySet()){
-            Log.d("DENNISB",entry.getKey() + ": " + entry.getValue());
+
             String[] key_parts = entry.getKey().split("_");
+
+            Log.d("DENNISB",entry.getKey() + ": " + entry.getValue() + ". key parts length = " + key_parts.length);
             if(key_parts.length == 3){
                 // good one
                 boolean found = false;
