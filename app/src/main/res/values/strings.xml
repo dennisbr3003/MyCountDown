@@ -1,24 +1,18 @@
 <resources>
     <string name="app_name">MyCountDown</string>
-    <string name="MainText">Nothing to see here</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
-    <string name="app_widget_description">This is an app widget description</string>
-    <string name="days_untill_retirement">Days until retirement</string>
-    <string name="_days">0</string>
-    <string name="widget_id_200">Widget ID 200</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="dennis_brink">Dennis Brink</string>
+    <string name="app_widget_description">Create personalized countdowns for upcoming important events</string>
+    <string name="sample_widget_text">Days until retirement</string>
+    <string name="sample_days">0</string>
     <string name="last_update_at">last update at:</string>
-    <string name="_2040_03_01">2040-03-01</string>
-    <string name="_9">9</string>
-    <string name="textview">TextView</string>
+    <string name="sample_date">2040-03-01</string>
+    <string name="sample_total_updates">9</string>
+    <string name="sample_countdown_text">Days until some event</string>
     <string name="updates">Updates:</string>
     <string name="widget">Widget:</string>
-    <string name="_55">55</string>
-    <string name="todo">TODO</string>
+    <string name="sample_widget_id">55</string>
     <string name="target_date">Target date:</string>
-    <string name="_22_00">22:00</string>
+    <string name="sample_update_time">22:00</string>
+    <string name="error_creating_widget">Error creating widget</string>
+    <string name="todo">TODO</string>
 </resources>

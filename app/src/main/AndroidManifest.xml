@@ -5,9 +5,9 @@
     <uses-permission android:name="android.permission.REORDER_TASKS" />
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/icon_main"
+        android:icon="@mipmap/image28"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/icon_main"
+        android:roundIcon="@mipmap/image28"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyWidget">
         <receiver

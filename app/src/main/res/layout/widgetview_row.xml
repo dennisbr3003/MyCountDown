@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/widget_row"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
@@ -17,9 +16,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="12dp"
-        app:srcCompat="@mipmap/icon_main"
-        tools:ignore="ImageContrastCheck"
-        android:contentDescription="@string/todo" />
+        android:contentDescription="@string/todo"
+        app:srcCompat="@mipmap/image28"
+        tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:id="@+id/txtWidgetID"
@@ -28,7 +27,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
         android:layout_toEndOf="@id/txtWidgetIDText"
-        android:text="@string/_55"
+        android:text="@string/sample_widget_id"
         android:textStyle="bold" />
 
     <View
@@ -79,7 +78,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
         android:layout_toEndOf="@id/imageView2"
-        android:text="@string/textview" />
+        android:text="@string/sample_countdown_text" />
 
     <TextView
         android:id="@+id/txtTargetIsoDate"
@@ -103,7 +102,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="6dp"
         android:layout_toEndOf="@id/txtTotalUpdates"
-        android:text="@string/_9"
+        android:text="@string/sample_total_updates"
         android:textStyle="bold" />
 
     <TextView
@@ -116,7 +115,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="6dp"
         android:layout_toEndOf="@id/txtTargetIsoDate"
-        android:text="@string/_2040_03_01"
+        android:text="@string/sample_date"
         android:textStyle="bold" />
 
     <TextView
@@ -129,7 +128,7 @@
         android:layout_marginStart="4dp"
         android:layout_marginTop="6dp"
         android:layout_toEndOf="@id/txtLastUpdateTime"
-        android:text="@string/_22_00"
+        android:text="@string/sample_update_time"
         android:textStyle="bold" />
 
 </RelativeLayout>

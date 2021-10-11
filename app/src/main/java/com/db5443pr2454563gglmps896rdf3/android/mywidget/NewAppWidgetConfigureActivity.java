@@ -2,6 +2,7 @@ package com.db5443pr2454563gglmps896rdf3.android.mywidget;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.AlertDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -10,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -106,6 +108,7 @@ public class NewAppWidgetConfigureActivity extends Activity {
                 if(!simpleAnswer.islAnswer()){
                     Log.d("DENNISB", "SimpleAnswer message " + simpleAnswer.getMessage());
                     // show error dialog that has to be tabbed, then break.
+                    showErrorDialog(simpleAnswer);
                     return;
                 }
 
@@ -196,5 +199,36 @@ public class NewAppWidgetConfigureActivity extends Activity {
         return dateValidator.isValid(targetDate);
 
     }
+
+    private void showErrorDialog(SimpleAnswer cr){
+
+        Context context = this;
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inf = LayoutInflater.from(context);
+        View errorDialogExtraLayout;
+        TextView tv;
+
+        errorDialogExtraLayout = inf.inflate(R.layout.general_error, null);
+        tv = errorDialogExtraLayout.findViewById(R.id.txtViewErrorMessage);
+
+
+        builder.setView(errorDialogExtraLayout);
+        tv.setText(cr.getMessage());
+        AlertDialog dlg = builder.create();
+        dlg.setCancelable(false);
+        dlg.setCanceledOnTouchOutside(false);
+        final AlertDialog f_dlg = dlg; // because it is used in another thread it has to be final
+
+        errorDialogExtraLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                f_dlg.dismiss();
+            }
+        });
+
+        dlg.show();
+
+    }
+
 
 }
