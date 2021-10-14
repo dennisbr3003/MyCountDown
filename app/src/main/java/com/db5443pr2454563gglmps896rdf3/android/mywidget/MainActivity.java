@@ -27,9 +27,11 @@ public class MainActivity extends AppCompatActivity implements Constants, Widget
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         supportInvalidateOptionsMenu();
+
         // data to populate the RecyclerView with
         ArrayList<WidgetRowElement> widgetRows = new ArrayList<>();
 
@@ -91,10 +93,12 @@ public class MainActivity extends AppCompatActivity implements Constants, Widget
         recyclerView.setAdapter(adapter);
 
     }
+
     @Override
     public void onItemClick(View view, int position) {
         Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
     }
+
     @Override
     public boolean onPrepareOptionsMenu (Menu menu){
 
@@ -133,11 +137,10 @@ public class MainActivity extends AppCompatActivity implements Constants, Widget
                 break;
             default:
                 itemGhost.setIcon(ContextCompat.getDrawable(this, R.mipmap.image22a));
-
-
         }
         return super.onPrepareOptionsMenu(menu);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the main_menu; this adds items to the action bar if it is present.
