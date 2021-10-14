@@ -86,7 +86,7 @@ public class NewAppWidgetConfigureActivity extends Activity {
         super.onCreate(icicle);
 
         // Set the result to CANCELED.  This will cause the widget host to cancel
-        // out of the widget placement if the user presses the back button.
+        // out of the widget placement if the user presses the back cancel_button.
         setResult(RESULT_CANCELED);
 
         binding = NewAppWidgetConfigureBinding.inflate(getLayoutInflater());
@@ -126,6 +126,15 @@ public class NewAppWidgetConfigureActivity extends Activity {
                 resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
                 setResult(RESULT_OK, resultValue);
                 finish();
+            }
+        });
+
+        Button cancelWidget = (Button) findViewById(R.id.btnCancel);
+        cancelWidget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("DENNISB", "OnClick cancelWidget");
+                cancelAndRemoveWidget();
             }
         });
 

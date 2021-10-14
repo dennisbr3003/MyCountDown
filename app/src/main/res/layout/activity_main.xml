@@ -4,18 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity">
 
    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/WidgetView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:tag="widget_list"
-        android:focusableInTouchMode="true"
-        app:layoutManager="LinearLayoutManager"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        tools:listitem="@layout/widgetview_row"/>
+       android:id="@+id/WidgetView"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_marginStart="8dp"
+       android:layout_marginEnd="8dp"
+       android:layout_marginBottom="8dp"
+       android:focusableInTouchMode="true"
+       android:tag="widget_list"
+       app:layoutManager="LinearLayoutManager"
+       tools:listitem="@layout/widgetview_row">
+
+   </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

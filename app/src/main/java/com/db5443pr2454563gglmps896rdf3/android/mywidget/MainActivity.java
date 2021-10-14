@@ -1,6 +1,7 @@
 package com.db5443pr2454563gglmps896rdf3.android.mywidget;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -9,22 +10,26 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements Constants, WidgetViewAdapter.ItemClickListener{
 
     WidgetViewAdapter adapter;
     Resource  rs = new Resource();
+    int ghostwidgets = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        supportInvalidateOptionsMenu();
         // data to populate the RecyclerView with
         ArrayList<WidgetRowElement> widgetRows = new ArrayList<>();
 
@@ -50,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements Constants, Widget
                     wre.setSomeValue(key_parts[2], entry.getValue().toString());
                     widgetRows.add(wre);
                 }
+
             } else {
                 // remove this crappy entry
                 rs.deleteSingleWidgetSharedPreferences(this, entry.getKey());
@@ -57,8 +63,26 @@ public class MainActivity extends AppCompatActivity implements Constants, Widget
             }
         }
 
+        // add some provision for ghost widgets. They don't have target dates associated with them
+        // We will add a counter to keep check of the number of ghost widgets (a special wre instance is added)
+        Log.d("DENNISB","Scan for ghostwidgets");
+        try {
+            Iterator<WidgetRowElement> i = widgetRows.iterator();
+            while (i.hasNext()){
+                WidgetRowElement wre = i.next();
+                if (wre.targetIsoDate == "" || wre.targetIsoDate == null || wre.targetIsoDate == "null"){
+                    Log.d("DENNISB", "Found and removed ghostwidget " + wre.getWidgetId() + " from recyclerview");
+                    i.remove();
+                    ghostwidgets++;
+                }
+            }
+            Log.d("DENNISB", "Found " + ghostwidgets + " ghostwidgets");
 
-        // set up the RecyclerView
+        }catch(Exception e){
+            Log.d("DENNISB", "Exception " + e.getMessage());
+        }
+
+       // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.WidgetView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new WidgetViewAdapter(this, widgetRows);
@@ -70,6 +94,69 @@ public class MainActivity extends AppCompatActivity implements Constants, Widget
     @Override
     public void onItemClick(View view, int position) {
         Toast.makeText(this, "You clicked " + adapter.getItem(position) + " on row number " + position, Toast.LENGTH_SHORT).show();
+    }
+    @Override
+    public boolean onPrepareOptionsMenu (Menu menu){
+
+        MenuItem itemGhost = menu.findItem(R.id.ghost);
+
+        switch (ghostwidgets) {
+            case 0:
+                itemGhost.setIcon(ContextCompat.getDrawable(this, R.mipmap.image29a));
+                break;
+            case 1:
+                itemGhost.setIcon(ContextCompat.getDrawable(this, R.mipmap.image28a));
+                break;
+            case 2:
+                itemGhost.setIcon(ContextCompat.getDrawable(this, R.mipmap.image27a));
+                break;
+            case 3:
+                itemGhost.setIcon(ContextCompat.getDrawable(this, R.mipmap.image26a));
+                break;
+            case 4:
+                itemGhost.setIcon(ContextCompat.getDrawable(this, R.mipmap.image25a));
+                break;
+            case 5:
+                itemGhost.setIcon(ContextCompat.getDrawable(this, R.mipmap.image24a));
+                break;
+            case 6:
+                itemGhost.setIcon(ContextCompat.getDrawable(this, R.mipmap.image23a));
+                break;
+            case 7:
+                itemGhost.setIcon(ContextCompat.getDrawable(this, R.mipmap.image20a));
+                break;
+            case 8:
+                itemGhost.setIcon(ContextCompat.getDrawable(this, R.mipmap.image19a));
+                break;
+            case 9:
+                itemGhost.setIcon(ContextCompat.getDrawable(this, R.mipmap.image21a));
+                break;
+            default:
+                itemGhost.setIcon(ContextCompat.getDrawable(this, R.mipmap.image22a));
+
+
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the main_menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch(item.getItemId()) {
+            case R.id.ghost:
+                //no action, I use the menu as a placeholder for an icon
+                break;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+
+        return true;
     }
 
     static class WidgetRowElement {
