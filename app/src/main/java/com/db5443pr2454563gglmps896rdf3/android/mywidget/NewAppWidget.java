@@ -3,10 +3,16 @@ package com.db5443pr2454563gglmps896rdf3.android.mywidget;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 import android.widget.RemoteViews;
+
+import androidx.annotation.RequiresApi;
+
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
 
 /**
  * Implementation of App Widget functionality.
@@ -23,7 +29,23 @@ public class NewAppWidget extends AppWidgetProvider {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.new_app_widget);
 
         try { // update widget text fields
-            views.setTextViewText(R.id.txtDaysLeft, String.valueOf(getNumberOfDays(context, appWidgetId)));
+            if (getNumberOfDays(context, appWidgetId) > 0) {
+                views.setTextViewText(R.id.txtDaysLeft, String.valueOf(getNumberOfDays(context, appWidgetId) + 1));
+                views.setTextViewText(R.id.txtTimeUnit, "days incl. current");
+            }
+            else {
+                if (getNumberOfHours(context, appWidgetId) > 0) {
+                    views.setTextViewText(R.id.txtDaysLeft, String.valueOf(getNumberOfHours(context, appWidgetId)));
+                    views.setTextViewText(R.id.txtTimeUnit, "hours");
+                } else {
+                    if (getNumberOfMinutes(context, appWidgetId) > 0) {
+                        views.setTextViewText(R.id.txtDaysLeft, String.valueOf(getNumberOfMinutes(context, appWidgetId)));
+                        views.setTextViewText(R.id.txtTimeUnit, "minutes");
+                    } else {
+                        views.setTextViewText(R.id.txtTimeUnit, "");
+                    }
+                }
+            }
             views.setTextViewText(R.id.txtCountDownTo, rs.getSharedReferenceCountDownText(context, appWidgetId));
             //update count and time of update
             rs.saveSharedReferenceLastUpdateTime(context, appWidgetId);
@@ -52,11 +74,32 @@ public class NewAppWidget extends AppWidgetProvider {
         }
     }
 
+
     private static int getNumberOfDays(Context context, int appWidgetId){
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             LocalDateTime x = LocalDateTime.parse(rs.getSharedReferenceTargetDate(context, appWidgetId) + "T00:00:00.000000000");
             if(LocalDateTime.now().isBefore(x)) {
                 return Integer.parseInt(String.valueOf(ChronoUnit.DAYS.between(LocalDateTime.now(), x)));
+            } else {return 0;}
+        }
+        return 0;
+    }
+
+    private static int getNumberOfHours(Context context, int appWidgetId){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            LocalDateTime x = LocalDateTime.parse(rs.getSharedReferenceTargetDate(context, appWidgetId) + "T00:00:00.000000000");
+            if(LocalDateTime.now().isBefore(x)) {
+                return Integer.parseInt(String.valueOf(ChronoUnit.HOURS.between(LocalDateTime.now(), x)));
+            } else {return 0;}
+        }
+        return 0;
+    }
+
+    private static int getNumberOfMinutes(Context context, int appWidgetId){
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            LocalDateTime x = LocalDateTime.parse(rs.getSharedReferenceTargetDate(context, appWidgetId) + "T00:00:00.000000000");
+            if(LocalDateTime.now().isBefore(x)) {
+                return Integer.parseInt(String.valueOf(ChronoUnit.MINUTES.between(LocalDateTime.now(), x)));
             } else {return 0;}
         }
         return 0;
