@@ -31,16 +31,16 @@ public class NewAppWidget extends AppWidgetProvider {
         try { // update widget text fields
             if (getNumberOfDays(context, appWidgetId) > 0) {
                 views.setTextViewText(R.id.txtDaysLeft, String.valueOf(getNumberOfDays(context, appWidgetId) + 1));
-                views.setTextViewText(R.id.txtTimeUnit, "days incl. current");
+                views.setTextViewText(R.id.txtTimeUnit, "day(s) incl. this one");
             }
             else {
                 if (getNumberOfHours(context, appWidgetId) > 0) {
                     views.setTextViewText(R.id.txtDaysLeft, String.valueOf(getNumberOfHours(context, appWidgetId)));
-                    views.setTextViewText(R.id.txtTimeUnit, "hours");
+                    views.setTextViewText(R.id.txtTimeUnit, "hour(s)");
                 } else {
                     if (getNumberOfMinutes(context, appWidgetId) > 0) {
                         views.setTextViewText(R.id.txtDaysLeft, String.valueOf(getNumberOfMinutes(context, appWidgetId)));
-                        views.setTextViewText(R.id.txtTimeUnit, "minutes");
+                        views.setTextViewText(R.id.txtTimeUnit, "minute(s)");
                     } else {
                         views.setTextViewText(R.id.txtTimeUnit, "");
                     }

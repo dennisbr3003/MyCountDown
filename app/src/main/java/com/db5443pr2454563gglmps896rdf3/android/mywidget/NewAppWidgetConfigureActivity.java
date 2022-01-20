@@ -1,11 +1,9 @@
 package com.db5443pr2454563gglmps896rdf3.android.mywidget;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -13,7 +11,6 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -21,11 +18,6 @@ import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 
 import com.db5443pr2454563gglmps896rdf3.android.mywidget.databinding.NewAppWidgetConfigureBinding;
-import com.flask.colorpicker.ColorPickerView;
-import com.flask.colorpicker.OnColorSelectedListener;
-import com.flask.colorpicker.builder.ColorPickerClickListener;
-import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
-
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
 
@@ -95,7 +87,7 @@ public class NewAppWidgetConfigureActivity extends Activity {
         mCountDownText = binding.ptxtCountDownText;
         mTargetDateText = binding.ptxtTargetDate;
 
-        Button addWidget = (Button) findViewById(R.id.add_button);
+        Button addWidget = (Button) findViewById(R.id.btnAdd);
 
         addWidget.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -135,45 +127,6 @@ public class NewAppWidgetConfigureActivity extends Activity {
             public void onClick(View view) {
                 Log.d("DENNISB", "OnClick cancelWidget");
                 cancelAndRemoveWidget();
-            }
-        });
-
-        Button selectColorText = (Button) findViewById(R.id.btnTextColor);
-        selectColorText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("DENNISB", "mOnClickListener selectTextColor");
-
-                final Context context = NewAppWidgetConfigureActivity.this;
-                ColorPickerDialogBuilder
-                        .with(context)
-                        .setTitle("Choose color")
-                        .initialColor(rs.getSharedReferenceTextColor(context, mAppWidgetId))
-                        .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
-                        .density(12)
-                        .setOnColorSelectedListener(new OnColorSelectedListener() {
-                            @Override
-                            public void onColorSelected(int selectedColor) {
-                                Log.d("onColorSelected: 0x", Integer.toHexString(selectedColor));
-                            }
-                        })
-                        .setPositiveButton("ok", new ColorPickerClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
-                                rs.saveSharedReferenceTextColor(selectedColor, context, mAppWidgetId);
-                                TextView textColorSample = (TextView) findViewById(R.id.txtTextColor);
-                                textColorSample.setTextColor(rs.getSharedReferenceTextColor(context, mAppWidgetId));
-                            }
-                        })
-                        .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Log.d("onColorSelectedCancel", "cancel");
-                            }
-                        })
-                        .build()
-                        .show();
-
             }
         });
 
