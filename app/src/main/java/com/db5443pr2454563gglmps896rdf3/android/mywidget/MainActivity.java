@@ -66,13 +66,15 @@ public class MainActivity extends AppCompatActivity implements Constants, Widget
         }
 
         // add some provision for ghost widgets. They don't have target dates associated with them
-        // We will add a counter to keep check of the number of ghost widgets (a special wre instance is added)
+        // We will add a counter to keep track of the number of ghost widgets (a special wre instance is added)
         Log.d("DENNISB","Scan for ghostwidgets");
         try {
             Iterator<WidgetRowElement> i = widgetRows.iterator();
             while (i.hasNext()){
                 WidgetRowElement wre = i.next();
                 if (wre.targetIsoDate == "" || wre.targetIsoDate == null || wre.targetIsoDate == "null"){
+                    // remove any shared preferences that may exist will remove evidence this app created a ghost widget
+                    // rs.deleteAllWidgetSharedPreferences(this, Integer.parseInt(wre.getWidgetId()));
                     Log.d("DENNISB", "Found and removed ghostwidget " + wre.getWidgetId() + " from recyclerview");
                     i.remove();
                     ghostwidgets++;

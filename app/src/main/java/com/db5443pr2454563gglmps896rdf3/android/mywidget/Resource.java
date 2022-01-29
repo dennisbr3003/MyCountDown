@@ -18,7 +18,7 @@ public class Resource implements Constants {
 
     public String getSharedReferenceTargetDate(Context context, int appWidgetId){
         SharedPreferences prefs = context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE);
-        return prefs.getString(PREF_PREFIX_KEY + appWidgetId + "_" + TARGET_DATE, "2100-01-01");
+        return prefs.getString(PREF_PREFIX_KEY + appWidgetId + "_" + TARGET_DATE, context.getString(R.string.sample_target_date));
     }
 
     public void saveSharedReferenceTextColor(int textColor, Context context, int appWidgetId){
@@ -30,7 +30,7 @@ public class Resource implements Constants {
 
     public int getSharedReferenceTextColor(Context context, int appWidgetId){
         SharedPreferences prefs = context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE);
-        return Integer.parseInt(prefs.getString(PREF_PREFIX_KEY + appWidgetId + "_" + TEXT_COLOR, String.valueOf(Color.parseColor("#000000"))));
+        return Integer.parseInt(prefs.getString(PREF_PREFIX_KEY + appWidgetId + "_" + TEXT_COLOR, String.valueOf(Color.parseColor(context.getString(R.string.background_color)))));
     }
 
     public void saveSharedReferenceCountDownText(String countDownText, Context context, int appWidgetId){
@@ -42,12 +42,12 @@ public class Resource implements Constants {
 
     public String getSharedReferenceCountDownText(Context context, int appWidgetId){
         SharedPreferences prefs = context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE);
-        return prefs.getString(PREF_PREFIX_KEY + appWidgetId + "_" + COUNTDOWN_TEXT, "Days until some event");
+        return prefs.getString(PREF_PREFIX_KEY + appWidgetId + "_" + COUNTDOWN_TEXT, context.getString(R.string.sample_countdown_text));
     }
 
     public String getSharedReferenceCount(Context context, int appWidgetId){
         SharedPreferences prefs = context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE);
-        return prefs.getString(PREF_PREFIX_KEY + appWidgetId + "_" + UPDATE_COUNT, "0");
+        return prefs.getString(PREF_PREFIX_KEY + appWidgetId + "_" + UPDATE_COUNT, context.getString(R.string.sample_update_count));
     }
 
     public void saveSharedReferenceCount(Context context, int appWidgetId){
@@ -71,7 +71,7 @@ public class Resource implements Constants {
 
     public String getSharedReferenceLastUpdateTime(Context context, int appWidgetId){
         SharedPreferences prefs = context.getSharedPreferences(SHAREDPREF_NAME, Context.MODE_PRIVATE);
-        return prefs.getString(PREF_PREFIX_KEY + appWidgetId + "_" + LAST_UPDATE, "00:00");
+        return prefs.getString(PREF_PREFIX_KEY + appWidgetId + "_" + LAST_UPDATE, context.getString(R.string.sample_update_time_res));
     }
 
     public void deleteAllWidgetSharedPreferences(Context context, int appWidgetId){
