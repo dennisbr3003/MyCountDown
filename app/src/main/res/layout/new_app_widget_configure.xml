@@ -16,11 +16,12 @@
 
     <EditText
         android:id="@+id/ptxtCountDownText"
-        android:layout_width="match_parent"
+        android:layout_width="342dp"
         android:layout_height="wrap_content"
+        android:hint="@string/customized_text"
+        android:importantForAutofill="no"
         android:inputType="text"
-        android:minHeight="48dp"
-        android:importantForAutofill="no" />
+        android:minHeight="48dp" />
 
     <TextView
         android:id="@+id/ptxtHintTargetDateFormat"
@@ -30,15 +31,39 @@
         android:labelFor="@id/ptxtCountDownText"
         android:text="@string/target_date_label" />
 
-    <EditText
-        android:id="@+id/ptxtTargetDate"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:minHeight="48dp"
-        tools:ignore="SpeakableTextPresentCheck"
-        android:importantForAutofill="no" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <EditText
+            android:id="@+id/ptxtTargetDate"
+            android:layout_width="258dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:ems="10"
+            android:hint="@string/enter_a_date"
+            android:importantForAutofill="no"
+            android:minHeight="48dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgCalendar"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:clickable="true"
+            android:contentDescription="@string/calendar"
+            android:focusable="true"
+            android:minWidth="48dp"
+            android:scaleType="fitXY"
+            android:src="@mipmap/calendar_3"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </RelativeLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

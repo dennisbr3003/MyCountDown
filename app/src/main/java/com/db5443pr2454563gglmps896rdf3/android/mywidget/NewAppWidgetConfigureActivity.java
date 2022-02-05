@@ -2,9 +2,11 @@ package com.db5443pr2454563gglmps896rdf3.android.mywidget;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,7 +14,9 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
@@ -20,6 +24,7 @@ import androidx.annotation.RequiresApi;
 import com.db5443pr2454563gglmps896rdf3.android.mywidget.databinding.NewAppWidgetConfigureBinding;
 import java.time.format.DateTimeFormatter;
 import java.time.format.ResolverStyle;
+import java.util.Calendar;
 
 /**
  * The configuration screen for the {@link NewAppWidget NewAppWidget} AppWidget.
@@ -29,9 +34,12 @@ public class NewAppWidgetConfigureActivity extends Activity {
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
     static Resource  rs = new Resource();
+    final Context context = NewAppWidgetConfigureActivity.this;
 
     EditText mCountDownText;
     EditText mTargetDateText;
+
+    DatePickerDialog datePickerDialog;
 
     private NewAppWidgetConfigureBinding binding;
 
@@ -87,7 +95,31 @@ public class NewAppWidgetConfigureActivity extends Activity {
         mCountDownText = binding.ptxtCountDownText;
         mTargetDateText = binding.ptxtTargetDate;
 
-        Button addWidget = (Button) findViewById(R.id.btnAdd);
+        Button addWidget = findViewById(R.id.btnAdd);
+        ImageView imgCalendar = findViewById(R.id.imgCalendar);
+
+        imgCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar c = Calendar.getInstance();
+                int mYear = c.get(Calendar.YEAR); // current year
+                int mMonth = c.get(Calendar.MONTH); // current month zero based!
+                int mDay = c.get(Calendar.DAY_OF_MONTH); // current day
+                // date picker dialog
+                datePickerDialog = new DatePickerDialog(context,
+                        new DatePickerDialog.OnDateSetListener() {
+
+                            @Override
+                            public void onDateSet(DatePicker view, int year,
+                                                  int monthOfYear, int dayOfMonth) {
+                                // set day of month , month and year value in the edit text
+                                mTargetDateText.setText(String.format("%d-%02d-%02d", year, (monthOfYear + 1), dayOfMonth));
+
+                            }
+                        }, mYear, mMonth, mDay);
+                datePickerDialog.show();
+            }
+        });
 
         addWidget.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -103,8 +135,6 @@ public class NewAppWidgetConfigureActivity extends Activity {
                     showErrorDialog(simpleAnswer);
                     return;
                 }
-
-                final Context context = NewAppWidgetConfigureActivity.this;
 
                 rs.saveSharedReferenceTargetDate(mTargetDateText.getText().toString(), context, mAppWidgetId);
                 rs.saveSharedReferenceCountDownText(mCountDownText.getText().toString(), context, mAppWidgetId);
@@ -160,6 +190,21 @@ public class NewAppWidgetConfigureActivity extends Activity {
         DateValidator dateValidator = new DateValidator(dateFormatter);
         return dateValidator.isValid(targetDate);
 
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(this != null){
+            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR);
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(this != null){
+            this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
     }
 
     private void showErrorDialog(SimpleAnswer cr){
